@@ -5,7 +5,41 @@ include('include/dbconnector.inc.php');
 
 $error = $message = ''; // Initialisierung der Variablen mit leeren Werten
 
-//ToDo: DB Anbindung und Abfrage 
+// Formular wurde gesendet und Benutzer ist noch nicht angemeldet
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Benutzereingaben überprüfen
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+
+        // Benutzereingaben trimmen
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+
+        // Datenbankabfrage, um Benutzerdaten abzurufen
+        $query = "SELECT * FROM users WHERE username = ?";
+        $stmt = $dbconn->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Benutzer in der Datenbank gefunden ?
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $stored_password = $row['password'];
+
+            // Passwort überprüfen
+            if (password_verify($password, $stored_password)) {
+                $message = "Sie sind nun eingeloggt.";
+            } else {
+                $error = "Benutzername oder Passwort ist falsch.";
+            }
+        } else {
+            $error = "Benutzername oder Passwort ist falsch.";
+        }
+    } else {
+        $error = "Geben Sie bitte Benutzername und Passwort an.";
+    }
+}
 
 ?>
 <!DOCTYPE html>
