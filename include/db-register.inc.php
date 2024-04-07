@@ -1,30 +1,33 @@
 <?php
 // Wurden Daten mit "POST" gesendet?
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // Validierung mit htmlspecialchars() und trim()
 
+    $error = '';
+
+    // Servervalidierung Validierung
+    // Überprüfen erforderlichen Felder und Trimmen und htmlspecialchars
     if (isset($_POST['firstname'])) {
         $firstname = htmlspecialchars(trim($_POST['firstname']));
-        if (empty($firstname) or strlen($firstname) < 30) {
-            $error .= "Geben Sie bitte einen korrekten Vornamen ein";
+        if (empty($firstname)) {
+            $error .= "Geben Sie bitte Ihren Vornamen ein. ";
         }
     }
     if (isset($_POST['lastname'])) {
         $lastname = htmlspecialchars(trim($_POST['lastname']));
-        if (empty($lastname) or strlen($lastname) < 30) {
-            $error .= "Geben Sie bitte einen korrekten Nachnamen ein";
+        if (empty($lastname)) {
+            $error .= "Geben Sie bitte Ihren Nachnamen ein. ";
         }
     }
     if (isset($_POST['email'])) {
         $email = htmlspecialchars(trim($_POST['email']));
-        if (empty($email) or strlen($email) < 100) {
-            $error .= "Geben Sie bitte eine korrekte Email-Adresse ein";
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $error .= "Geben Sie bitte eine gültige E-Mail-Adresse ein. ";
         }
     }
     if (isset($_POST['username'])) {
         $username = htmlspecialchars(trim($_POST['username']));
-        if (empty($username) or strlen($username) < 30) {
-            $error .= "Geben Sie bitte einen korrekten Benutzernamen ein";
+        if (empty($username) || strlen($username) < 6) {
+            $error .= "Der Benutzername muss mindestens 6 Zeichen lang sein. ";
         }
     }
 
@@ -52,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // Statement schliessen
         $stmt->close();
         // Weiterleiten auf Login seite
-        //header ("Location: login.php"); //Deaktiviert um Fehlermeldungen zu sehen
+        header ("Location: login.php"); //Deaktivieren um Fehlermeldungen zu sehen.
     }
 }
 // Datenbankverbindung schliessen
 $dbconn->close();
+?>

@@ -1,14 +1,11 @@
 <?php
-// Datenbankverbindung herstellen
+// DB Zugangsdaten
 $dbservername = "localhost";
 $dbusername = "itechtracker";
 $dbpassword = "TrvM]s9(SwNzls_A";
 $dbname = "itechtracker";
 
-// Initialisierung der Variablen mit leeren Werten
-$firstname = $lastname = $email = $username = $error = $message = '';
-
-// Verbindung zu der Datenbank herstellen
+// Verbindung zu der DB herstellen
 $dbconn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
 // Überprüfen, ob die Verbindung erfolgreich war

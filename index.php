@@ -1,3 +1,6 @@
+<?php
+session_start(); // Starten der Sitzung
+?>
 <!DOCTYPE html>
 <html lang="de">
 
@@ -18,12 +21,15 @@
 <body>
     <?php
     // Include Navbar
-    include 'include/navbar.php';
+    include 'include/navbar.inc.php';
     ?>
     <div class="container">
         <h1>Home</h1>
     </div>
-
+    <?php
+    // Include Navbar
+    include 'include/footer.inc.php';
+    ?>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

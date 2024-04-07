@@ -1,7 +1,9 @@
 <?php
-// Include der PHP-Datei für die Benutzerregistrierung
+// Include Dateien
 include 'include/dbconnector.inc.php';
 include 'include/db-register.inc.php';
+
+$error = $message = '';
 ?>
 
 <!DOCTYPE html>
@@ -22,17 +24,13 @@ include 'include/db-register.inc.php';
 </head>
 
 <body>
-  <?php
-  // Include Navbar
-  include 'include/navbar.php';
-  ?>
   <div class="container">
     <h1>Registrierung</h1>
     <p>
       Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
     </p>
     <?php
-    //Ausgabe der Fehlermeldungen 
+    //Ausgabe Fehlermeldungen 
     if (strlen($error)) {
       echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
     } elseif (strlen($message)) {
@@ -51,18 +49,18 @@ include 'include/db-register.inc.php';
       </div>
       <div class="form-group">
         <label for="email">E-Mail *</label>
-        <input type="email" name="email" class="form-control" autocomplete="email" id="email" type="email" maxlength="30" required placeholder="Geben Sie Ihre Email-Adresse an.">
+        <input type="email" name="email" class="form-control" autocomplete="email" id="email" type="email" maxlength="30" required placeholder="Geben Sie Ihre E-Mail-Adresse an.">
       </div>
       <div class="form-group">
         <label for="username">Benutzername *</label>
-        <input type="text" name="username" class="form-control" autocomplete="username" id="username" maxlength="30" required placeholder="Gross- und Keinbuchstaben, min 6 Zeichen.">
+        <input type="text" name="username" class="form-control" autocomplete="username" id="username" minlength="6" maxlength="30" required placeholder="Mindestens 6 Zeichen.">
       </div>
       <div class="form-group">
         <label for="password">Password *</label>
         <input type="password" name="password" class="form-control" id="password" required minlength="12" maxlength="255" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 12 Zeichen, keine Umlaute">
       </div>
       <div class="form-group col-6">
-        <label for="captcha">Enter Captcha*</label>
+        <label for="captcha">Enter Captcha</label>
         <input type="text" class="form-control" name="captcha" id="captcha">
       </div>
       <div class="form-group col-6">
@@ -78,11 +76,14 @@ include 'include/db-register.inc.php';
             <button onclick="window.location.href='./login.php';" type="button" name="button" class="btn btn-info">Anmelden</button>
     </form>
   </div>
-
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
+  <?php
+  // Include Navbar
+  include 'include/footer.inc.php';
+  ?>
 
 </html>

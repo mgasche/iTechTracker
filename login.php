@@ -1,6 +1,7 @@
 <?php
+session_start(); // Starten der Sitzung
 
-// Datenbankverbindung
+// Include Dateien
 include('include/dbconnector.inc.php');
 
 $error = $message = ''; // Initialisierung der Variablen mit leeren Werten
@@ -22,14 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // Benutzer in der Datenbank gefunden ?
+        // Benutzer in der Datenbank gefunden?
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             $stored_password = $row['password'];
 
             // Passwort überprüfen
             if (password_verify($password, $stored_password)) {
+                // Setzen der Benutzerinformationen in der Sitzung
+                $_SESSION['user_id'] = $row['id']; // User ID
+                $_SESSION['username'] = $row['username']; // Username
                 $message = "Sie sind nun eingeloggt.";
+                session_regenerate_id(true);
+                // Weiterleitung des Benutzers auf Dashboard bei Erfolg.
+                header("Location: index.php");
+                exit();
             } else {
                 $error = "Benutzername oder Passwort ist falsch.";
             }
@@ -40,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Geben Sie bitte Benutzername und Passwort an.";
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -60,17 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php
-    // Include Navbar
-    include 'include/navbar.php';
-    ?>
     <div class="container">
         <h1>Login</h1>
         <p>
             Bitte melden Sie sich mit Benutzernamen und Passwort an.
         </p>
         <?php
-        // fehlermeldung oder nachricht ausgeben
+        // Fehlermeldung oder Nachricht ausgeben
         if (!empty($message)) {
             echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         } else if (!empty($error)) {
@@ -79,13 +82,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <form action="" method="POST">
             <div class="form-group">
-                <label for="username">Benutzername *</label>
-                <input type="text" name="username" class="form-control" id="username" value="" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
+                <label for="username">Benutzername</label>
+                <input type="text" name="username" class="form-control" id="username" value="" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
             </div>
             <!-- password -->
             <div class="form-group">
-                <label for="password">Password *</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
+                <label for="password">Passwort</label>
+                <input type="password" name="password" class="form-control" id="password" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
             </div>
             <button type="submit" name="button" value="submit" class="btn btn-primary">Senden</button>
             <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button><br><br>
@@ -96,7 +99,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
 
     </div>
-
+    <?php
+    // Include Navbar
+    include 'include/footer.inc.php';
+    ?>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
