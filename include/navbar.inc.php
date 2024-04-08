@@ -12,7 +12,13 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-            
+            <?php
+                // Überprüfen, ob Benuter angemeldet ist
+                if (isset($_SESSION['user_id'])) {
+                    echo '<li><a href="./dashboard.php">Dashboard</a></li>';
+                    echo '<li><a href="./asset-creation.php">Neues Gerät</a></li>';
+                }
+                ?>
             </ul>
 
             <?php

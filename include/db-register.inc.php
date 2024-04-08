@@ -1,9 +1,7 @@
 <?php
 // Wurden Daten mit "POST" gesendet?
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
     $error = '';
-
     // Servervalidierung Validierung
     // Überprüfen erforderlichen Felder und Trimmen und htmlspecialchars
     if (isset($_POST['firstname'])) {

@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Sie sind nun eingeloggt.";
                 session_regenerate_id(true);
                 // Weiterleitung des Benutzers auf Dashboard bei Erfolg.
-                header("Location: index.php");
+                header("Location: dashboard.php");
                 exit();
             } else {
                 $error = "Benutzername oder Passwort ist falsch.";
