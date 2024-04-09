@@ -1,42 +1,36 @@
+<?php
+if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
+    // Vorname und Nachname aus der Session auslesen
+    $firstname = $_SESSION['firstname'];
+    $lastname = $_SESSION['lastname'];
+
+    // Vollständiger Name erstellen
+    $fullname = $firstname . ' ' . $lastname;
+}
+?>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="./">iTechTracker</a>
+            <a href="./dashboard.php" class="btn btn-default navbar-btn">Dashboard</a>
+            <a href="./asset-creation.php" class="btn btn-default navbar-btn">Neues Gerät</a>
+            <a href="./change-pw.php" class="btn btn-default navbar-btn">Passwort ändern</a>
+            <a href="./logout.php" class="btn btn-default navbar-btn">Logout</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            <?php
-                // Überprüfen, ob Benuter angemeldet ist
-                if (isset($_SESSION['user_id'])) {
-                    echo '<li><a href="./dashboard.php">Dashboard</a></li>';
-                    echo '<li><a href="./asset-creation.php">Neues Gerät</a></li>';
-                }
-                ?>
-            </ul>
+        <?php if (isset($_SESSION['user_id'])) : ?>
+            <div class="nav navbar-nav navbar-right">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo isset($fullname) ? $fullname : 'Dropdown'; ?>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a class="dropdown-item" href="change-pw.php">Passwort ändern</a></li>
+                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        <?php endif; ?>
 
-            <?php
-            // Überprüfen, ob der Benutzer nicht angemeldet ist
-            if (!isset($_SESSION['user_id'])) {
-                echo '<ul class="nav navbar-nav navbar-right">';
-                echo '<li><a href="./login.php">Anmelden</a></li>';
-                echo '<li><a href="./register.php">Registrieren</a></li>';
-                echo '</ul>';
-            }
-
-            // Überprüfen, ob der Benutzer angemeldet ist
-            if (isset($_SESSION['user_id'])) {
-                echo '<ul class="nav navbar-nav navbar-right">';
-                echo '<li><a href="logout.php">Logout</a></li>';
-                echo '</ul>';
-            }
-            ?>
-        </div>
+    </div>
     </div>
 </nav>
