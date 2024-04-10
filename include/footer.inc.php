@@ -17,8 +17,8 @@
           <li><a href="./about.php" class="text-light">Über iTechTracker</a></li>
           <li><a href="./datenschutz.php" class="text-light">Datenschutz</a></li>
           <li><a href="./impressum.php" class="text-light">Impressum</a></li>
-          <li><a href="./kontakt" class="text-light">Kontakt</a></li>
-          <li><a href="#" class="text-light">Sitemap</a></li>
+          <li><a href="./kontakt.php" class="text-light">Kontakt</a></li>
+          <li><a href="sitemap.php" class="text-light">Sitemap</a></li>
         </ul>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="col">
         <?php
         $year = date('Y');
-        echo '<p>Copyright &copy; ' . $year . ' TomatoTec - iTechTracker. Alle Rechte vorbehalten.</p>';
+        echo '<p>Copyright &copy; ' . $year . ' <a href="http://tomatotec.ch" class="text-light">TomatoTec</a> - <a href="./" class="text-light">iTechTracker</a>. Alle Rechte vorbehalten.</p>';
         ?>
       </div>
     </div>

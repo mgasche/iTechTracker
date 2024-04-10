@@ -32,9 +32,10 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                     echo '<li class="nav-item"><a class=" btn btn-primary" href="./register.php">Registrieren</a></li>';
                 }
                 if (isset($_SESSION['user_id'])) {
-                    echo '<li class="nav-item dropdown">';
+                    echo '<li class="nav-item dropdown ">';
                     echo '<a class="btn btn-success dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">' . (isset($fullname) ? $fullname : 'Account') . '</a>';
-                    echo '<ul class="dropdown-menu">';
+                    echo '<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">';
+                    echo '<li><a class="dropdown-item" href="./profile.php">Mein Profil</a></li>';
                     echo '<li><a class="dropdown-item" href="./change-pw.php">Passwort ändern</a></li>';
                     echo '<li><hr class="dropdown-divider"></li>';
                     echo '<li><a class="dropdown-item" href="./logout.php">Abmelden</a></li>';
