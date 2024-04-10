@@ -74,7 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="container">
+<?php
+    // Include Navbar
+    include 'include/navbar.inc.php';
+    ?>
+    <div class="container content-all">
         <h1>Login</h1>
         <p>
             Bitte melden Sie sich mit Benutzernamen und Passwort an.
@@ -97,12 +101,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password">Passwort</label>
                 <input type="password" name="password" class="form-control" id="password" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
             </div>
-            <button type="submit" name="button" value="submit" class="btn btn-primary">Senden</button>
-            <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button><br><br>
+            <button type="submit" name="button" value="submit" class="btn btn-primary">Anmelden</button>
+            <button type="reset" name="button" value="reset" class="btn btn-secondary">Löschen</button><br><br>
             <p>
                 Sie haben noch kein ein Konto?
             </p>
-            <button onclick="window.location.href='./register.php';" type="button" name="button" class="btn btn-info">Registrieren</button>
+            <button onclick="window.location.href='./register.php';" type="button" name="button" class="btn btn-light">Registrieren</button>
         </form>
 
     </div>

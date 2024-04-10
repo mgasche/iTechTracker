@@ -13,7 +13,7 @@ $error = $message = '';
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registrierung</title>
+  <title>Registrierung - iTechTracker</title>
 
   <!-- CSS verlinken -->
   <link rel="stylesheet" href="style.css">
@@ -23,7 +23,11 @@ $error = $message = '';
 </head>
 
 <body>
-  <div class="container">
+<?php
+    // Include Navbar
+    include 'include/navbar.inc.php';
+    ?>
+  <div class="container content-all">
     <h1>Registrierung - iTechTracker</h1>
     <p>
       Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
@@ -68,11 +72,11 @@ $error = $message = '';
       </div>
 
       <button type="submit" name="button" value="submit" class="btn btn-primary">Registrieren</button>
-      <button type="reset" name="button" value="reset" class="btn btn-danger">Löschen</button><br><br>
+      <button type="reset" name="button" value="reset" class="btn btn-secondary">Löschen</button><br><br>
       <p>
         Sie haben bereits ein Konto?
       </p>
-      <button onclick="window.location.href='./login.php';" type="button" name="button" class="btn btn-info">Anmelden</button>
+      <button onclick="window.location.href='./login.php';" type="button" name="button" class="btn btn-light">Anmelden</button>
     </form>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
