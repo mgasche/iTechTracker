@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <body>
     <?php include 'include/navbar.inc.php'; ?>
-    <div class="container">
+    <div class="container content-all">
         <h1>Passwort ändern</h1>
         <?php
         if (!empty($error)) {

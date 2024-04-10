@@ -32,7 +32,7 @@ $result = $stmt->get_result();
     // Include Navbar
     include 'include/navbar.inc.php';
     ?>
-    <div class="container">
+    <div class="container content-all">
         <h1>Willkommen beim iTechTracker</h1>
         <p>Hier sehen Sie alle erstellten Assets der User</p>
         <table class="table">

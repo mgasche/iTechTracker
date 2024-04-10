@@ -35,7 +35,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard</title>
+    <title>Übersicht - iTechTracker</title>
 
     <!-- CSS verlinken -->
     <link rel="stylesheet" href="style.css">
@@ -50,9 +50,18 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
     // Include Navbar
     include 'include/navbar.inc.php';
     ?>
-    <div class="container">
-        <h2>Guten Tag,</h2>
+    <div class="container content-all">     
         <?php
+        $current_hour = date("H"); // Die aktuelle Stunde im 24-Stunden-Format abrufen
+        // Gruß entsprechend der Tageszeit auswählen
+        if ($current_hour < 12) {
+            $greeting = "Guten Morgen";
+        } elseif ($current_hour < 18) {
+            $greeting = "Guten Tag";
+        } else {
+            $greeting = "Guten Abend";
+        }
+        echo '<h2>' . $greeting . ',</h2>';
         echo '<h1>' . $fullname . '</h1>';
         ?>
         <p>Hier können Sie Ihre Geräte verwalten:</p>

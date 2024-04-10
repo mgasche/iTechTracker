@@ -31,7 +31,7 @@ include 'include/db-asset-creation.inc.php';
     <?php
     include 'include/navbar.inc.php';
     ?>
-    <div class="container">
+    <div class="container content-all">
         <h1>Gerät erstellen</h1>
         <?php
         // Ausgabe der Fehlermeldungen und Erfolgsmeldungen 

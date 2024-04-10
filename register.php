@@ -24,7 +24,7 @@ $error = $message = '';
 
 <body>
   <div class="container">
-    <h1>Registrierung</h1>
+    <h1>Registrierung - iTechTracker</h1>
     <p>
       Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
     </p>
