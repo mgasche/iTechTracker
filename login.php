@@ -6,6 +6,12 @@ include('include/dbconnector.inc.php');
 
 $error = $message = ''; // Initialisierung der Variablen mit leeren Werten
 
+// Überprüfen, ob der Benutzer bereits angemeldet ist
+if (isset($_SESSION['user_id'])) {
+    header("Location: overview.php"); // Weiterleitung auf das Dashboard
+    exit();
+}
+
 // Formular wurde gesendet und Benutzer ist noch nicht angemeldet
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -38,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $message = "Sie sind nun eingeloggt.";
                 session_regenerate_id(true);
                 // Weiterleitung des Benutzers auf Dashboard bei Erfolg.
-                header("Location: dashboard.php");
+                header("Location: overview.php");
                 exit();
             } else {
                 $error = "Benutzername oder Passwort ist falsch.";
@@ -64,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
@@ -104,10 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Include Navbar
     include 'include/footer.inc.php';
     ?>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -8,29 +8,41 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
     $fullname = $firstname . ' ' . $lastname;
 }
 ?>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="./">iTechTracker</a>
-            <a href="./dashboard.php" class="btn btn-default navbar-btn">Dashboard</a>
-            <a href="./asset-creation.php" class="btn btn-default navbar-btn">Neues Gerät</a>
-            <a href="./change-pw.php" class="btn btn-default navbar-btn">Passwort ändern</a>
-            <a href="./logout.php" class="btn btn-default navbar-btn">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="./">iTechTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <?php
+                // Überprüfen, ob Benutzer angemeldet ist
+                if (isset($_SESSION['user_id'])) {
+                    echo '<li class="nav-item"><a class="nav-link" href="./overview.php">Übersicht</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="./asset-creation.php">Neues Gerät</a></li>';
+                }
+                ?>
+            </ul>
+            <ul class="navbar-nav">
+                <?php
+                // Überprüfen, ob der Benutzer nicht angemeldet ist
+                if (!isset($_SESSION['user_id'])) {
+                    echo '<li class="nav-item"><a class=" btn btn-success" href="./login.php">Anmelden</a></li>';
+                    echo '<li class="nav-item"><a class=" btn btn-primary" href="./register.php">Registrieren</a></li>';
+                }
+                if (isset($_SESSION['user_id'])) {
+                    echo '<li class="nav-item dropdown">';
+                    echo '<a class="btn btn-success dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">' . (isset($fullname) ? $fullname : 'Account') . '</a>';
+                    echo '<ul class="dropdown-menu">';
+                    echo '<li><a class="dropdown-item" href="./change-pw.php">Passwort ändern</a></li>';
+                    echo '<li><hr class="dropdown-divider"></li>';
+                    echo '<li><a class="dropdown-item" href="./logout.php">Abmelden</a></li>';
+                    echo '</ul>';
+                }
+                ?>
+            </ul>
         </div>
-        <?php if (isset($_SESSION['user_id'])) : ?>
-            <div class="nav navbar-nav navbar-right">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo isset($fullname) ? $fullname : 'Dropdown'; ?>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><a class="dropdown-item" href="change-pw.php">Passwort ändern</a></li>
-                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        <?php endif; ?>
-
-    </div>
     </div>
 </nav>
+
