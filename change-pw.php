@@ -3,14 +3,14 @@ session_start();
 
 // Überprüfen, ob der Benutzer angemeldet ist
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Weiterleitung zum Login, falls nicht angemeldet
+    header("Location: login.php"); // redirect zu login
     exit();
 }
 
 $error = $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // Stellen Sie eine Verbindung zur Datenbank her
+    // DB verbindung
     include 'include/dbconnector.inc.php';
 
     $user_id = $_SESSION['user_id'];
@@ -81,19 +81,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         }
         ?>
-        <form action="" method="post">
+        <form method="post">
             <div class="form-group">
                 <label for="current_password">Aktuelles Passwort</label>
-                <input type="password" name="current_password" class="form-control" required>
+                <input type="password" id="current_password" name="current_password" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="new_password">Neues Passwort</label>
-                <input type="password" name="new_password" class="form-control" required>
+                <input type="password" id="new_password" name="new_password" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="confirm_password">Passwort bestätigen</label>
-                <input type="password" name="confirm_password" class="form-control" required>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
             </div>
+            <br>
             <button type="submit" class="btn btn-primary">Passwort ändern</button>
         </form>
     </div>

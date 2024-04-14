@@ -41,55 +41,61 @@ include 'include/db-asset-creation.inc.php';
             echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         }
         ?>
-        <form action="" method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="device_name">Gerätename *</label>
-                <input type="text" name="device_name" class="form-control" required>
+                <input type="text" id="device_name" name="device_name" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="model">Model *</label>
-                <input type="text" name="model" class="form-control" required>
+                <input type="text" id="model" name="model" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="manufacturer">Hersteller *</label>
-                <input type="text" name="manufacturer" class="form-control" required>
+                <input type="text" id="manufacturer" name="manufacturer" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="purchase_date">Kaufdatum</label>
-                <input type="date" name="purchase_date" class="form-control">
+                <input  type="date" id="purchase_date" name="purchase_date" class="form-control">
             </div>
             <div class="form-group">
                 <label for="price">Preis</label>
-                <input type="number" name="price" class="form-control" step="0.01">
+                <input type="number" id="price" name="price" class="form-control" step="0.01">
             </div>
             <div class="form-group">
                 <label for="color">Farbe</label>
-                <input type="text" name="color" class="form-control">
+                <input type="text" id="color" name="color" class="form-control">
             </div>
             <div class="form-group">
                 <label for="processor">Prozessor</label>
-                <input type="text" name="processor" class="form-control">
+                <input type="text" id="processor" name="processor" class="form-control">
             </div>
             <div class="form-group">
                 <label for="ram">RAM</label>
-                <input type="text" name="ram" class="form-control">
+                <input type="text" id="ram" name="ram" class="form-control">
             </div>
             <div class="form-group">
                 <label for="storage">Speicher</label>
-                <input type="text" name="storage" class="form-control">
+                <input type="text" id="storage" name="storage" class="form-control">
             </div>
             <div class="form-group">
                 <label for="warranty_end">Garantieende</label>
-                <input type="date" name="warranty_end" class="form-control">
+                <input type="date" id="warranty_end" name="warranty_end" class="form-control">
             </div>
+            <br>
             <div class="form-group">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="public" name="public">
                     <label class="form-check-label" for="public">Öffentlich</label>
                 </div>
             </div>
+            <br>
+            <div class="form-group">
+                <label for="image">Bild hochladen</label>
+                <input type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg" class="form-control">
+            </div>
 
-            <!-- ToDo: Bild Imput feld erstellen -->
+            <br>
             <button type="submit" class="btn btn-primary">Gerät erstellen</button>
         </form>
     </div>

@@ -24,6 +24,11 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                 }
                 ?>
             </ul>
+            <form class="d-flex" action="search_results.php" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Suchen" aria-label="Search" name="query">
+                <button class="btn btn-outline-light" type="submit">Suchen</button>
+            </form>
+
             <ul class="navbar-nav">
                 <?php
                 // Überprüfen, ob der Benutzer nicht angemeldet ist
@@ -43,7 +48,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                 }
                 ?>
             </ul>
+
         </div>
     </div>
 </nav>
-

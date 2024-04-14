@@ -11,6 +11,23 @@ $user_id = $_SESSION['user_id'];
 // Include Dateien
 include('include/dbconnector.inc.php');
 
+// Löschen eines Geräts, wenn die Anfrage zum Löschen gesendet wurde
+if (isset($_POST['delete_asset'])) {
+    $asset_id_to_delete = $_POST['asset_id'];
+    
+    // Query zum Löschen des Geräts ausführen
+    $delete_query = "DELETE FROM assets WHERE asset_id = ? AND user_id = ?";
+    $stmt = $dbconn->prepare($delete_query);
+    $stmt->bind_param("ii", $asset_id_to_delete, $user_id);
+    if ($stmt->execute()) {
+        // Erfolgreich gelöscht
+        // Hier können Sie eine Erfolgsmeldung anzeigen, wenn Sie möchten
+    } else {
+        // Fehler beim Löschen
+        // Hier können Sie eine Fehlermeldung anzeigen, wenn Sie möchten
+    }
+}
+
 // Datenbankabfrage, um die Geräte des Benutzers abzurufen
 $query = "SELECT * FROM assets WHERE user_id = ?";
 $stmt = $dbconn->prepare($query);
@@ -26,6 +43,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
     // Vollständiger Name erstellen
     $fullname = $firstname . ' ' . $lastname;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -50,10 +68,10 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
     // Include Navbar
     include 'include/navbar.inc.php';
     ?>
-    <div class="container content-all">     
+    <div class="container content-all">
         <?php
         $current_hour = date("H"); // Die aktuelle Stunde im 24-Stunden-Format abrufen
-        // Gruß entsprechend der Tageszeit auswählen
+        // Gruss entsprechend der Tageszeit auswählen
         if ($current_hour < 12) {
             $greeting = "Guten Morgen";
         } elseif ($current_hour < 18) {
@@ -72,6 +90,8 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                     <th>Modell</th>
                     <th>Hersteller</th>
                     <th>Kaufdatum</th>
+                    <th>Ändern</th>
+                    <th>Löschen</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +102,13 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                     echo "<td>" . $row['model'] . "</td>";
                     echo "<td>" . $row['manufacturer'] . "</td>";
                     echo "<td>" . $row['purchase_date'] . "</td>";
+                    echo "<td><a href='asset-edit.php?id=" . $row['asset_id'] . "' class='btn btn-primary'>Bearbeiten</a></td>";
+                    echo "<td>
+                    <form method='post'>
+                    <input type='hidden' name='asset_id' value='" . $row['asset_id'] . "'>
+                    <button type='submit' class='btn btn-danger' name='delete_asset' onclick='return confirm(\"Möchten Sie dieses Gerät wirklich löschen?\")'>Löschen</button>
+                </form>
+              </td>";
                     echo "</tr>";
                 }
                 ?>

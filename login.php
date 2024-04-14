@@ -101,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="password">Passwort</label>
                 <input type="password" name="password" class="form-control" id="password" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
             </div>
+            <br>
             <button type="submit" name="button" value="submit" class="btn btn-primary">Anmelden</button>
             <button type="reset" name="button" value="reset" class="btn btn-secondary">Löschen</button><br><br>
             <p>

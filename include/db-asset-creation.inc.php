@@ -25,6 +25,40 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $manufacturer = htmlspecialchars(trim($_POST['manufacturer']));
     }
 
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Dateiname und Speicherpfad festlegen
+        $filename = $_FILES['image']['name'];
+        $temp_filepath = $_FILES['image']['tmp_name'];
+
+        // Dateiendung überprüfen
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
+        $file_extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        if (!in_array($file_extension, $allowed_extensions)) {
+            $error .= "Nur JPG, JPEG, PNG und GIF Dateien sind erlaubt. ";
+        } else {
+            // Eindeutigen Dateinamen generieren
+            $unique_filename = uniqid() . '_' . $filename; // Eindeutiger Dateiname mit einem Zeitstempel-Vorfix
+
+            // Speicherpfad festlegen
+            $new_filepath = "public/asset-media/" . $unique_filename; // Verzeichnis, in dem die Datei gespeichert wird (muss erstellt werden)
+
+            // Bild speichern
+            if (move_uploaded_file($temp_filepath, $new_filepath)) {
+                // Bild wurde erfolgreich hochgeladen
+                $image_path = $new_filepath; // Speichern Sie den Dateipfad in Ihrer Datenbank
+            } else {
+                // Fehler beim Speichern des Bildes
+                $error .= "Fehler beim Hochladen des Bildes. ";
+            }
+        }
+    } else {
+        // Kein Bild hochgeladen oder Fehler beim Upload
+        // $error .= "Es wurde kein Bild hochgeladen oder ein Fehler ist aufgetreten. ";
+        $image_path = NULL; // Setzen Sie den Bildpfad auf leer, wenn kein Bild hochgeladen wurde
+    }
+
+
 
     // Optionale Felder Validierung
     $purchase_date = isset($_POST['purchase_date']) ? $_POST['purchase_date'] : "";
@@ -34,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $ram = isset($_POST['ram']) ? htmlspecialchars(trim($_POST['ram'])) : "";
     $storage = isset($_POST['storage']) ? htmlspecialchars(trim($_POST['storage'])) : "";
     $warranty_end = isset($_POST['warranty_end']) ? $_POST['warranty_end'] : "";
-    $image_path = isset($_POST['image_path']) ? htmlspecialchars(trim($_POST['$image_path'])) : "";
     $public = isset($_POST['public']) && $_POST['public'] === 'on' ? true : false;
 
 
@@ -55,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt = $dbconn->prepare($sql);
 
         // Parameter binden
-        $stmt->bind_param("isssdsssssssi", $user_id, $device_name, $model, $manufacturer, $purchase_date, $price, $color, $processor, $ram, $storage, $warranty_end, $image_path, $public);
+        $stmt->bind_param("isssssssssssi", $user_id, $device_name, $model, $manufacturer, $purchase_date, $price, $color, $processor, $ram, $storage, $warranty_end, $image_path, $public);
 
         // Statement ausführen
         if ($stmt->execute()) {

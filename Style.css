@@ -16,3 +16,8 @@ footer {
     margin-top: auto;
     padding-top: 20px;
 }
+
+.card-img-top {
+    height: 300px; /* Festlegen der Höhe des Bildes */
+    object-fit: cover; /* Sichern, dass das Bild den verfügbaren Platz einnimmt und beschnitten wird, falls nötig */
+}
