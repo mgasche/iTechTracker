@@ -29,6 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     }
 
+    if (isset($_POST['password'])) {
+        $password = $_POST['password'];
+        // Überprüfen, ob das Passwort die Anforderungen erfüllt
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])([\w!@#$%^&*()-=+.,;?]){12,}$/', $password)) {
+            $error .= "Das Passwort muss mindestens 12 Zeichen lang sein und mindestens einen Grossbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten. ";
+        }
+    }
     // Keine Fehler, Benutzer in die Datenbank einfügen
     if (empty($error)) {
 
@@ -53,9 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // Statement schliessen
         $stmt->close();
         // Weiterleiten auf Login seite
-        header ("Location: login.php"); //Deaktivieren um Fehlermeldungen zu sehen.
+        header("Location: login.php"); //Deaktivieren um Fehlermeldungen zu sehen.
     }
 }
 // Datenbankverbindung schliessen
 $dbconn->close();
-?>

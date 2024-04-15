@@ -48,3 +48,7 @@ Die Demodaten wurden mit folgendem User erstellt:
 Username: itechtracker-demo
 Password: iTechTracker-Demo1
 ````
+````
+Username: itechtracker-demo2
+Password: iTechTracker-Demo2
+````

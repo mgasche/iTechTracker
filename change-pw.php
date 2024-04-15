@@ -25,7 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $current_password = $_POST['current_password'];
         $new_password = $_POST['new_password'];
         $confirm_password = $_POST['confirm_password'];
-        if ($new_password !== $confirm_password) {
+        // Passwortüberprüfung gemäß den angegebenen Kriterien
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])([\w!@#$%^&*()-=+.,;?]){12,}$/', $new_password)) {
+            $error = "Das neue Passwort muss mindestens 12 Zeichen lang sein und mindestens einen Grossbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten. ";
+        } elseif ($new_password !== $confirm_password) {
             $error = "Das neue Passwort und das bestätigte Passwort stimmen nicht überein.";
         } else {
             $sql = "SELECT password FROM users WHERE id = ?";
@@ -81,18 +84,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         }
         ?>
-        <form method="post">
+        <form method="post" onsubmit="return validatePassword()">
             <div class="form-group">
                 <label for="current_password">Aktuelles Passwort</label>
                 <input type="password" id="current_password" name="current_password" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="new_password">Neues Passwort</label>
-                <input type="password" id="new_password" name="new_password" class="form-control" required>
+                <input type="password" id="new_password" name="new_password" minlength="12" maxlength="255" class="form-control" required>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                    Das Passwort muss mindestens 12 Zeichen lang sein und mindestens einen Grossbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.
+                </small>
             </div>
             <div class="form-group">
                 <label for="confirm_password">Passwort bestätigen</label>
-                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                <input type="password" id="confirm_password" name="confirm_password" minlength="12" maxlength="255" class="form-control" required>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Passwort ändern</button>
@@ -103,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include 'include/footer.inc.php';
     ?>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </body>
 

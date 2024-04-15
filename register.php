@@ -62,14 +62,7 @@ $error = $message = '';
         <label for="password">Password *</label>
         <input type="password" name="password" class="form-control" id="password" required minlength="12" maxlength="255" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 12 Zeichen, keine Umlaute">
       </div>
-      <div class="form-group col-6">
-        <label for="captcha">Enter Captcha</label>
-        <input type="text" class="form-control" name="captcha" id="captcha">
-      </div>
-      <div class="form-group col-6">
-        <label for="captcha">Captcha Code</label>
-        <img src="scripts/captcha.php" alt="PHP Captcha">
-      </div>
+
 
       <button type="submit" name="button" value="submit" class="btn btn-primary">Registrieren</button>
       <button type="reset" name="button" value="reset" class="btn btn-secondary">Löschen</button><br><br>

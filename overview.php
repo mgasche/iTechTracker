@@ -14,7 +14,7 @@ include('include/dbconnector.inc.php');
 // Löschen eines Geräts, wenn die Anfrage zum Löschen gesendet wurde
 if (isset($_POST['delete_asset'])) {
     $asset_id_to_delete = $_POST['asset_id'];
-    
+
     // Query zum Löschen des Geräts ausführen
     $delete_query = "DELETE FROM assets WHERE asset_id = ? AND user_id = ?";
     $stmt = $dbconn->prepare($delete_query);
@@ -86,6 +86,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
         <table class="table">
             <thead>
                 <tr>
+                    <th>Öffentlich</th>
                     <th>Gerätenamen</th>
                     <th>Modell</th>
                     <th>Hersteller</th>
@@ -98,6 +99,7 @@ if (isset($_SESSION['firstname']) && isset($_SESSION['lastname'])) {
                 <?php
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
+                    echo "<td>" . $row['public'] . "</td>";
                     echo "<td>" . $row['device_name'] . "</td>";
                     echo "<td>" . $row['model'] . "</td>";
                     echo "<td>" . $row['manufacturer'] . "</td>";
