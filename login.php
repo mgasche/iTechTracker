@@ -91,15 +91,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
         }
         ?>
-        <form action="" method="POST">
+        <form method="POST">
             <div class="form-group">
                 <label for="username">Benutzername</label>
-                <input type="text" name="username" class="form-control" id="username" value="" title="Gross- und Keinbuchstaben, min 6 Zeichen." minlength="6" maxlength="30" required="true">
+                <input type="text" name="username" class="form-control" id="username" value="" title="Gross- und Keinbuchstaben, min 6 Zeichen." minlength="6" maxlength="30" required>
             </div>
             <!-- password -->
             <div class="form-group">
                 <label for="password">Passwort</label>
-                <input type="password" name="password" class="form-control" id="password" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 12 Zeichen lang,keine Umlaute." minlength="12"  maxlength="255" required="true">
+                <input type="password" name="password" class="form-control" id="password" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 12 Zeichen lang,keine Umlaute." minlength="12"  maxlength="255" required>
             </div>
             <br>
             <button type="submit" name="button" value="submit" class="btn btn-primary">Anmelden</button>
