@@ -4,7 +4,7 @@ session_start();
 
 // Überprüfen, ob der Benutzer angemeldet ist
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect zu login falls nicht gefudnen
+    header("Location: login.php"); // Redirect zu login falls nicht gefunden
     exit();
 }
 
@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $manufacturer = htmlspecialchars(trim($_POST['manufacturer']));
     }
 
+    // Prüfen, ob ein neues Bild hochgeladen wurde
+    $delete_image = isset($_POST['delete_image']);
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         // Dateiname und Speicherpfad festlegen
         $filename = $_FILES['image']['name'];
@@ -74,16 +76,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (move_uploaded_file($temp_filepath, $new_filepath)) {
                 // Bild wurde erfolgreich hochgeladen
                 $image_path = $new_filepath; // Bild in db Speichern
+                // Wenn ein neues Bild hochgeladen wurde, lösche das alte Bild
+                if (!empty($asset['image_path']) && file_exists($asset['image_path']) && !$delete_image) {
+                    unlink($asset['image_path']);
+                }
             } else {
                 // Fehler beim Speichern des Bildes
                 $error .= "Fehler beim Hochladen des Bildes. ";
             }
         }
+    } elseif ($delete_image) {
+        // Wenn das Löschen des Bildes bestätigt wurde, lösche das alte Bild
+        if (!empty($asset['image_path']) && file_exists($asset['image_path'])) {
+            unlink($asset['image_path']);
+        }
+        $image_path = ""; // Bildpfad in der Datenbank leeren
     } else {
-        // Kein Bild hochgeladen = null in DB
-        $image_path = NULL;
+        $image_path = $asset['image_path'];
     }
-
 
     $purchase_date = isset($_POST['purchase_date']) ? $_POST['purchase_date'] : "";
     $price = isset($_POST['price']) ? ($_POST['price'] !== '' ? floatval($_POST['price']) : null) : null;
@@ -172,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
         }
         ?>
-        <form method="post">
+        <form id="editForm" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="device_name">Gerätename *</label>
                 <input type="text" id="device_name" name="device_name" class="form-control" value="<?php echo $asset['device_name']; ?>" required>
@@ -227,18 +237,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         <label for="image">Bild hochladen</label>
                         <input type="file" id="image" name="image" accept="image/png, image/jpg, image/jpeg" class="form-control">
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="form-group">
-                        <?php if (!empty($asset['image_path'])) : ?>
-                            <img src="<?php echo $asset['image_path']; ?>" alt="Bild" style="max-width: 200px;">
+                        <?php if (!empty($asset['image_path']) && file_exists($asset['image_path'])) : ?>
+                            <img src="<?php echo $asset['image_path']; ?>" alt="Bild" style="max-width: 300px;">
+                            <input type="hidden" name="existing_image" value="<?php echo $asset['image_path']; ?>">
+                            <button type="submit" class="btn btn-danger" name="delete_image">Bild löschen</button>
                         <?php else : ?>
                             <p>Kein Bild vorhanden</p>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
-
 
             <br>
             <button type="submit" class="btn btn-primary">Speichern</button>
