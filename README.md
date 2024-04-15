@@ -43,7 +43,7 @@ CREATE USER 'itechtracker'@'localhost' IDENTIFIED BY 'TrvM]s9(SwNzls_A';
 GRANT SELECT, INSERT, UPDATE, DELETE ON 'itechtracker'.* TO 'itechtracker@'localhost';
 ````
 
-Es ist empfohlen dies in einer produktiven Umgebung zu ändern. Zudem im dbconnector file.
+Es ist empfohlen dies in einer produktiven Umgebung zu ändern. Dann muss auch das dbconnector.php File entsprechend angepasst werden.
 
 ---
 ### 4. Webroot anpassen
@@ -69,7 +69,7 @@ Jetzt ist alles konfiguriert und die Webseite kann in Betrieb genommen werden. �
 ````
 http://localhost
 ````
-Die Demodaten wurden mit folgendem User erstellt:
+Die Demodaten wurden mit folgenden Usern erstellt:
 ````
 Username: itechtracker-demo
 Password: iTechTracker-Demo1
