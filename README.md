@@ -14,12 +14,35 @@ Als ersten Schritt muss die ganze Serverumgebung gestartet werden. Dazu MAMP/XAM
     * Apache starten
     * MySQL starten
 
-### 2. DB importieren
+### 2. DB importieren & Rechte zuweisen
 Jetzt muss die vorkonfigurierte DB auf den DB Server installiert werden. Dazu das zur Verfügung gestellte mysql Script verwenden. Dieses kann direkt in phpmyadmin ausgeführt werden. <br>
-Anschliessend wird die DB, der DB User und Demoinhalt importiert.
+Anschliessend wird die DB mit dem Demoinhalt importiert.
+
+Damit die Applikation anschliessend auch Zugriff hat, muss ein User mit folgenden Rechten auf die DB erstellt werden:
+* Insert
+* Update
+* Delete
+* Select
+
+In der demo Konfig wurden Folgende Angaben verwendet:
+
+
+````
+CREATE USER 'itechtracker'@'localhost' IDENTIFIED BY 'TrvM]s9(SwNzls_A';
+````
+
+````
+GRANT SELECT, INSERT, UPDATE, DELETE ON 'itechtracker'.* TO 'itechtracker@'localhost';
+````
+
+Es ist empfohlen dies in einer produktiven Umgebung zu ändern. Zudem im dbconnector file.
 
 ### 3. Git Clone
 Nun kann das Projekt von GitHub über folgenden Link heruntergeladen werden. Der Steicherort merken, da dieser anschliessend benötigt wird.
+
+````
+git clone https://github.com/mgasche/iTechTracker.git
+````
 
 ### 4. Webroot anpassen
 Damit die Webseite direkt mittels eingabe http://localhost aufgerufen werdne kann, muss der Webserver unkonfigueriert werden. Dazu zuerst den Webserver Dienst in XAMPP oder der Server in MAMP stoppen.
