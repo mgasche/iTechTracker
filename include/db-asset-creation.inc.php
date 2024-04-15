@@ -37,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (!in_array($file_extension, $allowed_extensions)) {
             $error .= "Nur JPG, JPEG, PNG und GIF Dateien sind erlaubt. ";
         } else {
-            // Eindeutigen Dateinamen generieren
-            $unique_filename = uniqid() . '_' . $filename; // Eindeutiger Dateiname mit einem Zeitstempel-Vorfix
+            // Eindeutigen Dateinamen generieren mit Zeitstempel
+            $unique_filename = uniqid() . '_' . $filename;
 
             // Speicherpfad festlegen
-            $new_filepath = "public/asset-media/" . $unique_filename; // Verzeichnis, in dem die Datei gespeichert wird (muss erstellt werden)
+            $new_filepath = "public/asset-media/" . $unique_filename;
 
             // Bild speichern
             if (move_uploaded_file($temp_filepath, $new_filepath)) {
@@ -53,9 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
     } else {
-        // Kein Bild hochgeladen oder Fehler beim Upload
-        // $error .= "Es wurde kein Bild hochgeladen oder ein Fehler ist aufgetreten. ";
-        $image_path = NULL; // Setzen Sie den Bildpfad auf leer, wenn kein Bild hochgeladen wurde
+        $image_path = NULL; 
     }
 
 

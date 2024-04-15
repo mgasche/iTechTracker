@@ -5,7 +5,7 @@ Damit die App iTechTracker auf einem neuen System deployed werden kann, müssen 
 * MySQL Server
 * Webserver
 * Git Unterstützung
-
+---
 ### 1. Server starten
 Als ersten Schritt muss die ganze Serverumgebung gestartet werden. Dazu MAMP/XAMPP öffnen und Starten:
 * MAMP
@@ -14,8 +14,16 @@ Als ersten Schritt muss die ganze Serverumgebung gestartet werden. Dazu MAMP/XAM
     * Apache starten
     * MySQL starten
 
-### 2. DB importieren & Rechte zuweisen
-Jetzt muss die vorkonfigurierte DB auf den DB Server installiert werden. Dazu das zur Verfügung gestellte mysql Script verwenden. Dieses kann direkt in phpmyadmin ausgeführt werden. <br>
+---
+### 2. Git Clone
+Nun kann das Projekt von GitHub über folgenden Link heruntergeladen werden. Der Steicherort merken, da dieser anschliessend benötigt wird.
+
+````
+git clone https://github.com/mgasche/iTechTracker.git
+````
+---
+### 3. DB importieren & Rechte zuweisen
+Jetzt muss die vorkonfigurierte DB auf den DB Server installiert werden. Dazu das zur Verfügung gestellte mysql Script itechtracker.sql verwenden. Dieses kann direkt in phpmyadmin Webinterface ausgeführt werden. <br>
 Anschliessend wird die DB mit dem Demoinhalt importiert.
 
 Damit die Applikation anschliessend auch Zugriff hat, muss ein User mit folgenden Rechten auf die DB erstellt werden:
@@ -37,13 +45,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON 'itechtracker'.* TO 'itechtracker@'local
 
 Es ist empfohlen dies in einer produktiven Umgebung zu ändern. Zudem im dbconnector file.
 
-### 3. Git Clone
-Nun kann das Projekt von GitHub über folgenden Link heruntergeladen werden. Der Steicherort merken, da dieser anschliessend benötigt wird.
-
-````
-git clone https://github.com/mgasche/iTechTracker.git
-````
-
+---
 ### 4. Webroot anpassen
 Damit die Webseite direkt mittels eingabe http://localhost aufgerufen werdne kann, muss der Webserver unkonfigueriert werden. Dazu zuerst den Webserver Dienst in XAMPP oder der Server in MAMP stoppen.
 
@@ -61,6 +63,7 @@ DocumentRoot "C:\Temp\iTechTracker"
 
 Anschliessend kann der jeweilige Server wieder gestartet werden.
 
+---
 ### 5. Webseite aufrufen
 Jetzt ist alles konfiguriert und die Webseite kann in Betrieb genommen werden. Über folgenden Link kann die Seite aufgerufen werden.
 ````
