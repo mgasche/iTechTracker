@@ -23,10 +23,10 @@ $error = $message = '';
 </head>
 
 <body>
-<?php
-    // Include Navbar
-    include 'include/navbar.inc.php';
-    ?>
+  <?php
+  // Include Navbar
+  include 'include/navbar.inc.php';
+  ?>
   <div class="container content-all">
     <h1>Registrierung - iTechTracker</h1>
     <p>
@@ -63,7 +63,7 @@ $error = $message = '';
         <input type="password" name="password" class="form-control" id="password" required minlength="12" maxlength="255" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 12 Zeichen, keine Umlaute">
       </div>
 
-
+      <br>
       <button type="submit" name="button" value="submit" class="btn btn-primary">Registrieren</button>
       <button type="reset" name="button" value="reset" class="btn btn-secondary">Löschen</button><br><br>
       <p>
